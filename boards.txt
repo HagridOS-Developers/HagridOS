@@ -52,7 +52,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 # NUCLEO_F746ZG board
 # Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
 Nucleo_144.menu.pnum.NUCLEO_F746ZG=Nucleo F746ZG
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F724ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_data_size=131072
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.mcu=cortex-m7
