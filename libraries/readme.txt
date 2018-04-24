@@ -1,1 +1,1 @@
-For information on installing libraries, see: http://www.arduino.cc/en/Guide/Libraries
+Copy all folder to Arduilo library folder.
