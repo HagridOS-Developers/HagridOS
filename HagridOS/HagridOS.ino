@@ -1,5 +1,6 @@
 #include <Keypad.h>
 #include <STM32SD.h>
+#define debug_on 1
 
 const byte ROWS = 4; //four rows
 const byte COLS = 10; //three columns
@@ -15,12 +16,10 @@ byte colPins[COLS] = {34, 33, 32, 31, 30, 29, 28, 27, 26, 86}; //connect to the 
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
-char input[60];
+char input[60];//input buffer
 int pos = 0;
 
-char token[16];
-char token1[16];
-char token2[16];
+char* tmpE[20];//split field
 
 void setup() {
   Serial.begin(115200);
@@ -33,20 +32,37 @@ void loop() {
 
   if (input[pos]) {
     if (input[pos] == '\n') {
-      sscanf(input, "%s %s %s", token, token1, token2);
-      Serial.println();
-      Serial.println(token);
-      Serial.println(token1);
-      Serial.println(token2);
-      if(!strcmp(token,"mkdir"))
-      {
-        Serial.println("MAKE DIRECTORY");
-        }
+      input[pos] = '\0';
+      kbsplit(input);
+      switch (compare(&tmpE[0])) { //switch run basic commands
+        case 0://mkdir
+          Serial.println("\nMKDIR");
+          Serial.print(">");
+          clear_input_buffer();
+          break;
+        case 1:
+        Serial.println("\nRM DIR");
+          Serial.print(">");
+          clear_input_buffer();
+          break;
+        default:
+          Serial.print("\n");
+          Serial.print("hsh: ");
+          Serial.print(tmpE[0]);
+          Serial.print(" command not found");
+          Serial.print("\n>");
+          clear_input_buffer();
+          break;
+      }
+
+
+    } else {
+      Serial.print(input[pos]);
+      pos++;
     }
-    Serial.print(input[pos]);
-    pos++;
   }
 }
+
 
 
 
