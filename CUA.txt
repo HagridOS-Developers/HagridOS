@@ -1,0 +1,113 @@
+2.HW: fyzicka cast pocitace/zarozeni. na tuto cast si muzeme sahmnout
+  SW: cast programu Software nehmotna cast pocitace. jedna se o ridici kod
+  FW: nejzakladnejsi cast ktera umoznuje pripojeni zarizeni k procesoru. nastavuje hodiny a vsechny potrebne parametry.
+  virtualni storj: jedna se o system ktey umoznuje na jenom kuso hgardwaru startovat vice systemu najendou. vyhoda je spolecny procesor ram ale muzou byt i spolece ulozne media
+  vyhody: nejvetsi vyhoda je ta ze  na jendom pocitaci se muze nezavysle  na sobe spustit nekolik systemu ktery pobezi na jednom CPu GPU a na spolecne RAM pameti.
+          u techto zarizeni se vetsinou pouzivaji velmi vzkone procesory s velkym poctem jader a velka RAM pamet pro rychlejsi beh.
+	  tento system se da jednoduse upravovat pres vzdaleny prostredi kde se pridavaji nebo ubiraji a nastavuji visrualni pracovni stanice.
+          toto vyuziti se hodi pro firmy ktere potrebuji jak windows i linux na jednom pocitaci.
+
+3.
+
+4.zbernice: je sled urcitych vodicu ktere se daji rozdelit na adresove datove a ridici. slouzi k propojeni dvou zarizeni mezi sebou. prenos dat probiha po urcitem protokolu. definuje synchronizaci, syntaxi.
+  rozhrani:
+  protokol: jedna se o univrzalni smysl prenaseni dat v presnem poradi. mezi zname protokoly patri. RS323, SPI, I2C, TCP a dalsi. jedna se o standart pri komunikaci mezi zarizenimy
+
+5.princip:paraelni zbernice je slozena z 8 datovzch vodicu a z 9 ridicich pinu. Komunikace probiha po 8 vodicich vzdy paraelne(8 vodicu najednou=8bitu). data se vzdy posilaji najednou vsech 8 bitu.
+  typy siugnalu: port se zklada z 9 signalu. Vetsina pochazi z tiskarny jako napriklad zaneprazdneny nebo bez papiru.
+  omezeni: komunikacniu kabel nemodl byt priliz dlouhy vznikaly zde straty. mezi dalsi omezeni patri komunikacni rychlost mezi zarizenimy. maximalni rychlkost v dnesni dobe dosahuje 2mb/s.
+  priklady pouziti: bezne triskarny s LPT
+
+6.princip:seriovy prenos probiha pomoci dvou vodicu Rx a Tx. Princip se da prirovna k vysilackam. jedna se o komunikaci kdy jedne data vysila a jenden prima a naopak. rozlisujeme zde asychroni a synchorni prenos
+  zpusob synchronizace: sychroni vyuziva k synchronizaci specialni vodic s nazvem clk, asychroni vyuziva detekce nabezne hrany.
+  kriticka omezeni:
+  ramec: je sled bitu ktery zacina startbitem a konci stop bitem. muze obsahovbat i paritni bit.
+  pouziti. prenos dat mezi pozitaci
+
+7.zpracovani
+  digitalizace
+  vzorkovaci teorem: vzorkovaci frekvence musi byt vysi nez dvounasobna vstupni frekvence. pokud se tato podminka nedodrzi dostaneme same nuly
+
+8.princip sklada se ze dvou fazi. vzorkovani a kvantovani.
+          vzorkovani: provadi se rozdelim svisle osy(casova osa) na rovnomerne useky a z techto useku se odebere jedna hodnota. diky tomuto se prijde o mnoho detailu z puvodniho signalu ale je to nutne protoze pocitac nema nekonecnou pamet
+          kvantovani: lidove receno zarovnani na cele cisla. v elektronice se nedokazou zobrazit desetina cisla. proto se signal kvantuje
+  presnost: presnost ADC zalezi na pouziti komparatoru ktere porovnavaji vstupni velicinu s referencni.
+  hodnota LSB
+  vztah mezi merenou a vystupem
+  vypocet namerene hodnoty
+
+9.PWM:pulzne modulovana sirka(pulse widht modulation)
+  strida: prechod z jedne urovne do druhe v ajine DUTY cycle (pomer casu). jedna se o pomer casu jednotlivych stavu obdelnikoveho sygnalu(1nebo 0). vetsinou se  udava pomerem napriklad 1:1.
+          tim je mysleno ze obe casove doby trvaji stejne. stridu vupocitame delenim delky pulzu a periody.
+  presnot:
+  podminky popuziti: mikroprocesor musi obsahovat oscilatory na PWM
+  priklad pouziti:plunula zmena stavu, generovani frekvence
+
+10.sruktura v ASM:
+   pseudoinstrukce:
+   direktiva:
+   navesti:
+   komentare:
+   dvouoperandove a tri instrukce:
+11.zpusob adresovani:
+   prima hodnota:
+   prima adresa:
+   direktiva:
+   neprima adresa:
+
+12
+
+--------------------------------PLC---------------------------------------------
+13.prehled:
+  rozdil oproti pc: plc se muze pouzivat v prostorach kde je prach teplo. je malo nachylne na chyby a mm realnou odezvu. nebezi na nem operacni system
+  pevne a volne prog sys: pevne systemy maji presne dany program uz od vyroby. uzivatel nemuze zmenit smysl programu. u volne programovatelnych muze uzivatel menit cele chovani systemu.
+  vyhody lpc: plc je mene nachylne na poruchovost, muze pracovat v prasnych prostredich a kde je teplo
+  provedeni plc a struktura: plc rozdelujeme do dvou skupin jedna skupina se jmenuje modularni a druha kompaktni. hlavni rozdil mezi temito druhy je ten ze modularni je v zakladu jen procesorovy modul tudiz neobsahuje zadny v stupy ani vystupy.
+  tyto periferie je nutno zvlast dokoupit, natoz kompatkni typ je vybaven v/v jednoutkou ale teka umoznuje rozsireni o dalsi vstupy
+  rozdilz v pozadavcich na pc a na plc:
+
+14. princip cinosti.
+    1.nacteni vstupu:zde plc nacte vsechny vystupni jednbotkz a stavy ulozi
+    2.zpracovani dat(technologicky proces): v tomto bode se provedou vsechy logicke ulohy s nasnimanyma datama
+    3.poslani na vystup: tento krok posle na vystup data z vystupnich promenych
+    4. rezie programu: zde se provadi rezie programu coz znamena:
+
+15.pripojeni digitlaniho vstupu k plc:rozlisuje se  do tri tipu-
+  vsechny tipy obsahuji optoclen k odeleni nebezpecneho napeti od ridici elektroniky. pokud by se tato soucastka nepouzila mohlo by pro nespravnem zapojeni dojit k zniceni automatu
+    1.spolecna zem-
+    2.spolecne plus -
+    3. oboje kombinace
+
+16.pripojeni digitlaniho vystupu k plc:rozlisuje se  do tri tipu-
+    1.spolecna zem- zde se pouziva Tranzistor PNP
+    2.spolecne plus - zde se pouziva Tranzistor zaneprazdneny
+    3. oboje kombinace obou tranzistoru
+
+17
+
+18 programovani plc:
+  plc se da programovat ve 4 typech prostredi:
+  1.ST-structure text=tato moznost je nejunivrzalnejsi diky tomu ze je na ni norma, tudiz je na vsech PLC stejna1
+  2.IL-skoro jako asembler. jedna se o jazyk pripominajici assembler svoji strukturou
+  3.LD-lead diagram-hodne blizko ma k releovy logice. je oblibena u lidi ktery neumi programovat(instalater)
+  4.FB-funkcni bloky-pripomina logiku skladani z TTL obvodu
+
+-----------------------------------IOT------------------------------------------
+20.hardvardska-
+   brodvelska-
+
+23.USART()-seriova
+   CAN()
+   I2C()-univerzalni dvouvodicova seriova zbernice s hodinovym signalem. zbernice ma dva vodice SCL,SDA. vythoda tohoto rozhrani je ze  na dva vodice linky se da pripojit az 127 zarizeni. hodne pouzivany tento protokol je u eeprom pameti a hodinovych cipu.
+         mezi zajimavejsi pouziti patri komunikace s SD kartou nebo rizeni znakoveho LCD displaye ci grafickeho. pro tyto pouziti se frekvence pohybuje v radu 10MHz
+   SPI(seriap pheriph interface)-zbernice vyuzivajici 4 vodice. jedna se o seriovou komunikaci se sychronizaci. pouziva vyvody MOSI,MISO,CLK a dodaktovy vyvod CS- chipselect. rychlost teto zbernice zavisi na mikrokontroleru a na zarizeni na ktery je pripojeno
+   USB(universal serial bus)-v dnesni dobe nejpuuzivanejsi zbernice pro komunikaci zarizeni s pocitacem. vetsina modernich mikroprocesopru obsahuje uz tento protokol v zakladu(STM32). da se nakonfigurovat do mudu HS(high speed)- idelani pro usb flash zarizeni
+   a LS(low speed) pro HID(human iterface device) zarizeni
+
+24.
+
+25.vyvojove prostredi(IDE)- jsou pocitacove programy pro psani aplikaci v urcitem jazyce. jedna se pouze o navstavbu nad kompilator ktery je spousten z prikazove radky. vybvojove prostredi umoznuje zpravovat projekty,
+   pohodl editovat zdrojove kody.
+   cyklus vyvoje a ladeni programu: zacina se vzdy navrzenim jak ma uloha fungovat co budou vstupni udaje a vystupy. navrhne se model reseni zadani a nakonfiguruji se urcite vyvody a protokoly komunikacni. pote se napise samotna cast programu. do urcitych bode se umisti
+   zastavne body pro debuh nebo se oznaci promeny do funkce WATCH(sledovani stavu promene ARM uVISION),
+   smysl hex kodu, smysl pouzivani hex kodu je diky velkemu poctu bitu v procesoru. je ot jedina moznost jak binarni hodnoty prevest do citelneho tvaru. napriklad 32biru se da zapsat jako 0x0000
